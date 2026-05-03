@@ -5,9 +5,9 @@ Use augustosalazar/slim-mpi or augustosalazar/slim-mpi:2 (for macOS and windows)
 Start the container with one of the following commands:
 
 ```bash
-docker run -d -it --name mpicont -v "%cd%\target:/app" augustosalazar/slim-mpi
+docker run -d -it --name mpicont -v "%cd%\target:/app" augustosalazar/slim-mpi:2
 
-docker run -d -it --name mpicont -v "$(pwd)"/target:/app augustosalazar/slim-mpi
+docker run -d -it --name mpicont -v "$(pwd)"/target:/app augustosalazar/slim-mpi:2
 ```
 
 To run the container interactively, use:
@@ -18,9 +18,9 @@ docker exec -it mpicont mpiexec --allow-run-as-root -n 3 python /app/code0.py
 
 or run and delete the container after execution:
 ```bash
-docker run --rm -v "%cd%\target:/app" augustosalazar/slim-mpi mpiexec --allow-run-as-root -n 3 python /app/code0.py
+docker run --rm -v "%cd%\target:/app" augustosalazar/slim-mpi:2 mpiexec --allow-run-as-root -n 3 python /app/code0.py
 
-docker run --rm -v "$(pwd)"/target:/app augustosalazar/slim-mpi mpiexec --allow-run-as-root -n 3 python /app/code0.py
+docker run --rm -v "$(pwd)"/target:/app augustosalazar/slim-mpi:2 mpiexec --allow-run-as-root -n 3 python /app/code0.py
 ```
 
 
@@ -50,7 +50,7 @@ apk --update add nano
 
 ## Shared Memory
 ```bash
-docker run --rm -v "%cd%\target:/app" augustosalazar/slim-mpi mpiexec --allow-run-as-root -n 3 python /app/shared01.py
+docker run --rm -v "%cd%\target:/app" augustosalazar/slim-mpi:2 mpiexec --allow-run-as-root -n 3 python /app/shared01.py
 Proceso 2 de 3 iniciado.
 Proceso 0 de 3 iniciado.
 Proceso 1 de 3 iniciado.
