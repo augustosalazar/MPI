@@ -2,21 +2,7 @@
 
 Use augustosalazar/slim-mpi or augustosalazar/slim-mpi:2 (for macOS and windows) or augustosalazar/un_mpi_image:v5
 
-Start the container with one of the following commands:
-
-```bash
-docker run -d -it --name mpicont -v "%cd%\target:/app" augustosalazar/slim-mpi:2
-
-docker run -d -it --name mpicont -v "$(pwd)"/target:/app augustosalazar/slim-mpi:2
-```
-
-To run the container interactively, use:
-
-```bash 
-docker exec -it mpicont mpiexec --allow-run-as-root -n 3 python /app/code0.py
-```
-
-or run and delete the container after execution:
+To run and delete the container after execution:
 ```bash
 docker run --rm -v "%cd%\target:/app" augustosalazar/slim-mpi:2 mpiexec --allow-run-as-root -n 3 python /app/code0.py
 
