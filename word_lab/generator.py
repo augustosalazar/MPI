@@ -1,5 +1,6 @@
 import os
 import random
+import shutil
 
 
 def generar_spanish_words_info(output_file, target_size=2000):
@@ -140,7 +141,7 @@ def asegurar_vocabulario(vocab_path, min_vocab_size=2000):
 def cargar_vocabulario(word_list_path):
     with open(word_list_path, "r", encoding="utf-8") as f:
         vocab = [w.strip().lower() for w in f if w.strip()]
-    vocab = list(dict.fromkeys(vocab))  # quitar duplicados conservando orden
+    vocab = list(dict.fromkeys(vocab))
     if not vocab:
         raise RuntimeError("El archivo de vocabulario está vacío.")
     return vocab
@@ -182,6 +183,19 @@ def generar_consulta(vocab, query_size, query_path):
         )
 
 
+def preparar_directorio_salida(output_path):
+    """
+    Elimina completamente el directorio de salida si existe
+    y luego lo vuelve a crear vacío.
+    """
+    if os.path.exists(output_path):
+        print(f"Eliminando directorio existente: {output_path}")
+        shutil.rmtree(output_path)
+
+    os.makedirs(output_path, exist_ok=True)
+    print(f"Directorio de salida listo: {output_path}")
+
+
 def generar_textos_espanol(
     output_dir="dataset",
     num_files=1000,
@@ -197,14 +211,8 @@ def generar_textos_espanol(
     - un archivo consulta.txt con query_size palabras
     - un archivo de vocabulario si no existe o si es demasiado pequeño
 
-    Parámetros:
-    - output_dir: carpeta de salida
-    - num_files: número de archivos del corpus
-    - query_size: número de palabras en consulta.txt
-    - word_list_path: vocabulario base, una palabra por línea
-    - min_vocab_size: tamaño mínimo requerido del vocabulario
-    - weighted: si True, algunas palabras salen más que otras
-    - seed: semilla para reproducibilidad
+    Si el directorio de salida ya existe, se elimina completamente antes
+    de generar el nuevo dataset.
     """
     random.seed(seed)
 
@@ -212,22 +220,18 @@ def generar_textos_espanol(
     vocab_path = os.path.join(script_dir, word_list_path)
     output_path = os.path.join(script_dir, output_dir)
 
-    os.makedirs(output_path, exist_ok=True)
-
     asegurar_vocabulario(vocab_path, min_vocab_size=min_vocab_size)
     vocab = cargar_vocabulario(vocab_path)
 
-    # Pesos opcionales para que el top 10 sea más interesante
-    # Las primeras palabras tendrán más probabilidad.
+    preparar_directorio_salida(output_path)
+
     weights = None
     if weighted:
         weights = [1 / (i + 1) for i in range(len(vocab))]
 
-    # Generar consulta.txt
     query_path = os.path.join(output_path, "consulta.txt")
     generar_consulta(vocab, query_size, query_path)
 
-    # Generar archivos del corpus
     total_words = 0
     for i in range(1, num_files + 1):
         count = elegir_tamano_archivo()

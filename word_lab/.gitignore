@@ -1,2 +1,3 @@
-dataset/*.*
+dataset/*
+results/*
 spanish_words.info
