@@ -15,7 +15,7 @@ To run with docker
 docker run --rm -v "$(pwd)":/app augustosalazar/slim-mpi:2 python /app/generator.py
 ```
 
-or
+  or for windows command prompt:
 
 ```bash
 docker run --rm -v "%cd%:/app" augustosalazar/slim-mpi:2 python /app/generator.py
@@ -37,7 +37,7 @@ To run with docker
 docker run --rm -v "$(pwd)":/app augustosalazar/slim-mpi:2 python /app/baseline_secuencial.py
 ```
 
-or
+or for windows command prompt:
 
 ```bash
 docker run --rm -v "%cd%:/app" augustosalazar/slim-mpi:2 python /app/baseline_secuencial.py
@@ -75,7 +75,7 @@ A batch script is provided to run all the experiments automatically:
 docker run --rm -v "$(pwd)":/app augustosalazar/slim-mpi:2 sh /app/run_all.sh
 ```
 
-or 
+or for windows command prompt:
 
 ```bash
 docker run --rm -v "%cd%:/app" augustosalazar/slim-mpi:2 sh /app/run_all.sh

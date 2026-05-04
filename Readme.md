@@ -3,9 +3,13 @@
 Use augustosalazar/slim-mpi or augustosalazar/slim-mpi:2 (for macOS and windows) or augustosalazar/un_mpi_image:v5
 
 To run and delete the container after execution:
+
+for windows command prompt:
 ```bash
 docker run --rm -v "%cd%\target:/app" augustosalazar/slim-mpi:2 mpiexec --allow-run-as-root -n 3 python /app/code0.py
+```
 
+```bash
 docker run --rm -v "$(pwd)"/target:/app augustosalazar/slim-mpi:2 mpiexec --allow-run-as-root -n 3 python /app/code0.py
 ```
 
